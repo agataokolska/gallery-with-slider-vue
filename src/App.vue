@@ -7,7 +7,8 @@
             <div class="row justify-content-center">
 
                 <div class="col-sm-6 col-md-4 col-xl-2 team-member" v-for="person in people">
-                    <div class="team-member-picture mx-auto">
+                    <div class="team-member-picture mx-auto"
+                         @click="showSlider(person.name, person.surname, person.position)">
                         <div class="color-image"></div>
                         <img class="image justify-content-md-center" v-bind:src="person.image">
                         <div class="email">
@@ -21,6 +22,21 @@
             </div>
         </div>
 
+        <div class="slider-background d-flex justify-content-center align-items-center" v-if="isSlider">
+            <div class="slider-navigation">
+                <img class="angle-left" :src="angleLeft">
+                <img class="angle-right" :src="angleRight">
+                <img class="close-button" :src="closeButton" @click="isSlider = false">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="slider-person-box align-middle align-items-center offset-1 col-10">
+                        <p class="slider-person-position">{{people.position}}</p>
+                        <p class="slider-person-name">{{people.name}} {{people.surname}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -103,9 +119,26 @@
                     },
 
 
-                ]
+                ],
+                isSlider: false,
+                angleLeft: require('./assets/angle-left.png'),
+                angleRight: require('./assets/angle-right.png'),
+                closeButton: require('./assets/close.png')
             }
         },
+        methods: {
+            showSlider(name, surname, position) {
+                console.log(name, surname, position)
+                if (this.isSlider === false) {
+                    this.isSlider = true
+                    this.people.name = name
+                    this.people.surname = surname
+                    this.people.position = position
+                } else {
+                    return this.isSlider = false
+                }
+            }
+        }
     }
 </script>
 <style>
@@ -118,7 +151,7 @@
     .bg-image::after {
         content: "";
         background-image: url("./assets/bg.png");
-        opacity: 0.3;
+        opacity: 0.2;
         top: 0;
         left: 0;
         bottom: 0;
@@ -132,6 +165,7 @@
         font-size: 45px;
         margin-top: 45px;
         margin-bottom: 60px;
+        font-weight: 600;
         font-family: 'Open Sans', sans-serif;
     }
 
@@ -209,6 +243,59 @@
         margin-top: 30px;
     }
 
+    .slider-background {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url("./assets/slider-background.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .slider-person-position {
+        font-size: 35px;
+        color: white;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        text-shadow: 1px 1px 0 #444343;
+    }
+
+    .slider-person-name {
+        font-size: 70px;
+        color: white;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        text-shadow: 2px 1px 0 #444343;
+    }
+
+    .slider-person-box {
+        border: 5px dashed rgba(230, 230, 230, 0.2);
+        padding: 30px;
+    }
+
+    .angle-left {
+        position:absolute;
+        left: 0px;
+        top: 50%;
+        margin-top: -64px;
+    }
+    .angle-right {
+        position:absolute;
+        right: 0px;
+        top: 50%;
+        margin-top: -64px;
+    }
+    .close-button {
+        position:absolute;
+        right: 10px;
+        top: 10px;
+        width: 80px
+    }
+
+
     @media (min-width: 1200px) {
         .team-member {
             flex: 0 0 20%;
@@ -222,4 +309,39 @@
             font-size: 30px;
         }
     }
+    @media (max-width: 740px) {
+        .angle-left {
+           width: 100px
+        }
+        .angle-right {
+           width: 100px
+        }
+        .close-button {
+            width: 70px
+        }
+        .slider-person-name {
+            font-size: 60px;
+        }
+        .slider-person-position {
+            font-size: 30px
+        }
+    }
+    @media (max-width: 600px) {
+        .angle-left {
+            width: 90px
+        }
+        .angle-right {
+            width: 90px
+        }
+        .close-button {
+            width: 60px
+        }
+        .slider-person-name {
+            font-size: 50px;
+        }
+        .slider-person-position {
+            font-size: 25px
+        }
+    }
+
 </style>
