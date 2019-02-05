@@ -10,7 +10,6 @@
                     <div class="team-member-picture mx-auto">
                         <div class="color-image"></div>
                         <img class="image justify-content-md-center" v-bind:src="person.image">
-
                         <div class="email">
                             <i class="fas fa-envelope icon-envelope"></i>
                         </div>
@@ -36,70 +35,71 @@
                         surname: 'Kowalska',
                         position: 'Founder',
                         city: 'Warsaw',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-1.jpg')
+
                     },
                     {
                         name: 'Emilia',
                         surname: 'Zarzycka',
                         position: 'Human Resources',
                         city: 'London',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-2.jpg')
                     },
                     {
                         name: 'Anna',
                         surname: 'Tomala',
                         position: 'IT Helpdesk',
                         city: 'Warsaw',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-3.jpg')
                     },
                     {
                         name: 'Zenon',
                         surname: 'Fabiszewski',
                         position: 'Business Development',
                         city: 'Warsaw',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-4.jpg')
                     },
                     {
                         name: 'Marek',
                         surname: 'Maczek',
                         position: 'Head of Communication',
                         city: 'London',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-5.jpg')
                     },
                     {
                         name: 'Anna',
                         surname: 'Mroczek',
                         position: 'Head of Communication',
                         city: 'Warsaw',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-6.jpg')
                     },
                     {
                         name: 'Natalia',
                         surname: 'Mucha',
                         position: 'Human Resources Specialist',
                         city: 'London',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-7.jpg')
                     },
                     {
                         name: 'Anna',
                         surname: 'Nosowska-Tomczak',
                         position: 'Customer support',
                         city: 'Warsaw',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-8.jpg')
                     },
                     {
                         name: 'Tomasz',
                         surname: 'Miodowski',
                         position: 'Business Development',
                         city: 'Warsaw',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-9.jpg')
                     },
                     {
                         name: 'Kamil',
                         surname: 'Kisielewski',
                         position: 'Head of Communication',
                         city: 'London',
-                        image: 'https://source.unsplash.com/random/200x200'
+                        image: require('./assets/photo-10.jpg')
                     },
 
 
