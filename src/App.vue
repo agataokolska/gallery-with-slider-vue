@@ -25,14 +25,14 @@
         <div class="slider-background d-flex justify-content-center align-items-center" v-if="isSlider">
             <div class="slider-navigation">
                 <img class="angle-left" :src="angleLeft">
-                <img class="angle-right" :src="angleRight">
+                <img class="angle-right" :src="angleRight" @click="nextSlide(currentSlideName, currentSlideSurname, currentSlidePosition)">
                 <img class="close-button" :src="closeButton" @click="isSlider = false">
             </div>
             <div class="container">
                 <div class="row">
                     <div class="slider-person-box align-middle align-items-center offset-1 col-10">
-                        <p class="slider-person-position">{{people.position}}</p>
-                        <p class="slider-person-name">{{people.name}} {{people.surname}}</p>
+                        <p class="slider-person-position">{{currentSlidePosition}}</p>
+                        <p class="slider-person-name">{{currentSlideName}} {{currentSlideSurname}}</p>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,10 @@
                 isSlider: false,
                 angleLeft: require('./assets/angle-left.png'),
                 angleRight: require('./assets/angle-right.png'),
-                closeButton: require('./assets/close.png')
+                closeButton: require('./assets/close.png'),
+                currentSlideName:'',
+                currentSlideSurname:'',
+                currentSlidePosition:'',
             }
         },
         methods: {
@@ -131,13 +134,19 @@
                 console.log(name, surname, position)
                 if (this.isSlider === false) {
                     this.isSlider = true
-                    this.people.name = name
-                    this.people.surname = surname
-                    this.people.position = position
+                    this.currentSlideName = name
+                    this.currentSlideSurname = surname
+                    this.currentSlidePosition = position
                 } else {
                     return this.isSlider = false
                 }
+            },
+            nextSlide(currentSlideName, currentSlideSurname, currentSlidePosition) {
+                console.log(this.currentSlidePosition)
             }
+        },
+        computed: {
+
         }
     }
 </script>
