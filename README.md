@@ -1,5 +1,13 @@
-# gallery-with-slider-vue
+# GALLERY WITH SLIDER
 
+This is a project of simple gallery that contains picture and basic info about each person.
+When You click on picture You will see a slider with info about person.
+
+All project is made using Vue to practise my skills in this framework.
+Gallery is responsive, it was made using bootstrap 4
+
+## You can see demo of my work here: http://gallery-with-slider-vue.surge.sh/
+ 
 ## Project setup
 ```
 npm install
