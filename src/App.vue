@@ -10,7 +10,9 @@
                     <div class="team-member-picture mx-auto"
                          @click="showSlider(person.name, person.surname, person.position)">
                         <div class="color-image"></div>
-                        <img class="image justify-content-md-center" v-bind:src="person.image">
+                        <img class="image justify-content-md-center"
+                             v-bind:src="person.image"
+                        >
                         <div class="email">
                             <i class="fas fa-envelope icon-envelope"></i>
                         </div>
@@ -24,15 +26,25 @@
 
         <div class="slider-background d-flex justify-content-center align-items-center" v-if="isSlider">
             <div class="slider-navigation">
-                <img class="angle-left" :src="angleLeft">
-                <img class="angle-right" :src="angleRight" @click="nextSlide(currentSlideName, currentSlideSurname, currentSlidePosition)">
-                <img class="close-button" :src="closeButton" @click="isSlider = false">
+                <img class="angle-left"
+                     :src="angleLeft"
+                     @click="prevSlide(people.name, people.surname, people.position)"
+                >
+                <img class="angle-right"
+                     :src="angleRight"
+                     @click="nextSlide(people.name, people.surname, people.position)"
+                >
+                <img class="close-button"
+                     :src="closeButton"
+                     @click="isSlider = false"
+                >
             </div>
             <div class="container">
                 <div class="row">
                     <div class="slider-person-box align-middle align-items-center offset-1 col-10">
-                        <p class="slider-person-position">{{currentSlidePosition}}</p>
-                        <p class="slider-person-name">{{currentSlideName}} {{currentSlideSurname}}</p>
+                        <p class="slider-person-position">{{currentSlideData.position || people.position}}</p>
+                        <p class="slider-person-name">{{currentSlideData.name || people.name}}
+                            {{currentSlideData.surname ||people.surname}}</p>
                     </div>
                 </div>
             </div>
@@ -124,30 +136,74 @@
                 angleLeft: require('./assets/angle-left.png'),
                 angleRight: require('./assets/angle-right.png'),
                 closeButton: require('./assets/close.png'),
-                currentSlideName:'',
-                currentSlideSurname:'',
-                currentSlidePosition:'',
+
+                currentSlideData: [{
+                    name: "",
+                    surname: "",
+                    position: ""
+                }]
             }
         },
         methods: {
             showSlider(name, surname, position) {
-                console.log(name, surname, position)
                 if (this.isSlider === false) {
                     this.isSlider = true
-                    this.currentSlideName = name
-                    this.currentSlideSurname = surname
-                    this.currentSlidePosition = position
+                    this.people.name = name
+                    this.people.surname = surname
+                    this.people.position = position
                 } else {
                     return this.isSlider = false
                 }
             },
-            nextSlide(currentSlideName, currentSlideSurname, currentSlidePosition) {
-                console.log(this.currentSlidePosition)
+            nextSlide(name, surname, position) {
+                this.isSlider = true
+                this.people.name = name
+                this.people.surname = surname
+                this.people.position = position
+
+                let index = this.people.findIndex(obj => obj.name === this.people.name && obj.surname === this.people.surname && obj.position === this.people.position)
+                if (index >= this.people.length - 1) {
+                    index = 0
+                } else {
+                    index += 1
+                }
+
+                this.people.name = this.people[index].name
+                this.people.surname = this.people[index].surname
+                this.people.position = this.people[index].position
+
+                this.currentSlideData.push({
+                    name: this.people[index].name,
+                    surname: this.people[index].surname,
+                    position: this.people[index].position
+                })
+
+            },
+            prevSlide(name, surname, position) {
+                this.isSlider = true
+                this.people.name = name
+                this.people.surname = surname
+                this.people.position = position
+
+                let index = this.people.findIndex(obj => obj.name === this.people.name && obj.surname === this.people.surname && obj.position === this.people.position)
+                if (index === 0) {
+                    index = (this.people.length - 1)
+                } else {
+                    index -= 1
+                }
+
+                this.people.name = this.people[index].name
+                this.people.surname = this.people[index].surname
+                this.people.position = this.people[index].position
+
+                this.currentSlideData.push({
+                    name: this.people[index].name,
+                    surname: this.people[index].surname,
+                    position: this.people[index].position
+                })
+
             }
         },
-        computed: {
-
-        }
     }
 </script>
 <style>
@@ -286,19 +342,21 @@
     }
 
     .angle-left {
-        position:absolute;
+        position: absolute;
         left: 0px;
         top: 50%;
         margin-top: -64px;
     }
+
     .angle-right {
-        position:absolute;
+        position: absolute;
         right: 0px;
         top: 50%;
         margin-top: -64px;
     }
+
     .close-button {
-        position:absolute;
+        position: absolute;
         right: 10px;
         top: 10px;
         width: 80px
@@ -318,36 +376,46 @@
             font-size: 30px;
         }
     }
+
     @media (max-width: 740px) {
         .angle-left {
-           width: 100px
+            width: 100px
         }
+
         .angle-right {
-           width: 100px
+            width: 100px
         }
+
         .close-button {
             width: 70px
         }
+
         .slider-person-name {
             font-size: 60px;
         }
+
         .slider-person-position {
             font-size: 30px
         }
     }
+
     @media (max-width: 600px) {
         .angle-left {
             width: 90px
         }
+
         .angle-right {
             width: 90px
         }
+
         .close-button {
             width: 60px
         }
+
         .slider-person-name {
             font-size: 50px;
         }
+
         .slider-person-position {
             font-size: 25px
         }
