@@ -381,6 +381,11 @@
             text-align: center;
         }
     }
+    @media (max-width: 1060px) {
+        .slider-person-name {
+            font-size: 60px;
+        }
+    }
 
     @media (max-width: 576px) {
         h1 {
@@ -402,11 +407,18 @@
         }
 
         .slider-person-name {
-            font-size: 60px;
+            font-size: 50px;
         }
 
         .slider-person-position {
             font-size: 30px
+        }
+        .angle-left {
+            z-index: 11;
+        }
+
+        .angle-right {
+            z-index: 11;
         }
     }
 
@@ -424,11 +436,11 @@
         }
 
         .slider-person-name {
-            font-size: 50px;
+            font-size: 35px;
         }
 
         .slider-person-position {
-            font-size: 25px
+            font-size: 20px
         }
     }
 </style>
