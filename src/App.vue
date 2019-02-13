@@ -1,53 +1,61 @@
 <template>
-    <div class="bg-image">
-        <div class="container">
-            <div class="row justify-content-center">
-                <h1>Meet our team</h1>
-            </div>
-            <div class="row justify-content-center">
+    <div>
+        <div v-show="!isSlider">
+            <div class="bg-image">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <h1>Meet our team</h1>
+                    </div>
+                    <div class="row justify-content-center">
 
-                <div class="col-sm-6 col-md-4 col-xl-2 team-member" v-for="person in people">
-                    <div class="team-member-picture mx-auto"
-                         @click="showSlider(person.name, person.surname, person.position)">
-                        <div class="color-image"></div>
-                        <img class="image justify-content-md-center"
-                             v-bind:src="person.image"
-                        >
-                        <div class="email">
-                            <i class="fas fa-envelope icon-envelope"></i>
+                        <div class="col-sm-6 col-md-4 col-xl-2 team-member" v-for="person in people">
+                            <div class="team-member-picture mx-auto"
+                                 @click="showSlider(person.name, person.surname, person.position)">
+                                <div class="color-image"></div>
+                                <img class="image justify-content-md-center"
+                                     v-bind:src="person.image"
+                                >
+                                <div class="email">
+                                    <i class="fas fa-envelope icon-envelope"></i>
+                                </div>
+                            </div>
+                            <p class="person-name">{{person.name}} {{person.surname}}</p>
+                            <p class="person-position">{{person.position}}</p>
+                            <p class="person-city">{{person.city}}</p>
                         </div>
                     </div>
-                    <p class="person-name">{{person.name}} {{person.surname}}</p>
-                    <p class="person-position">{{person.position}}</p>
-                    <p class="person-city">{{person.city}}</p>
                 </div>
             </div>
         </div>
-
-        <div class="slider-background d-flex justify-content-center align-items-center" v-if="isSlider">
-            <div class="slider-navigation">
-                <img class="angle-left"
-                     :src="angleLeft"
-                     @click="prevSlide(people.name, people.surname, people.position)"
-                >
-                <img class="angle-right"
-                     :src="angleRight"
-                     @click="nextSlide(people.name, people.surname, people.position)"
-                >
-                <img class="close-button"
-                     :src="closeButton"
-                     @click="isSlider = false"
-                >
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="slider-person-box align-middle align-items-center offset-1 col-10">
-                        <p class="slider-person-position">{{currentSlideData.position || people.position}}</p>
-                        <p class="slider-person-name">{{currentSlideData.name || people.name}}
-                            {{currentSlideData.surname ||people.surname}}</p>
+        <div v-show="isSlider">
+            <div class="slider-background d-flex justify-content-center align-items-center">
+                <img class="slider-background" v-bind:src="bgSlider">
+                <div class="slider-navigation">
+                    <img class="angle-left"
+                         :src="angleLeft"
+                         @click="prevSlide(people.name, people.surname, people.position)"
+                    >
+                    <img class="angle-right"
+                         :src="angleRight"
+                         @click="nextSlide(people.name, people.surname, people.position)"
+                    >
+                    <img class="close-button"
+                         :src="closeButton"
+                         @click="isSlider = false"
+                    >
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="slider-person-box align-middle align-items-center offset-1 col-10">
+                            <p class="slider-person-position">{{currentSlideData.position || people.position}}</p>
+                            <p class="slider-person-name">{{currentSlideData.name || people.name}}
+                                {{currentSlideData.surname ||people.surname}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </template>
@@ -57,6 +65,7 @@
 
         data() {
             return {
+                isSlider: false,
                 people: [
                     {
                         name: 'Anna',
@@ -130,9 +139,8 @@
                         image: require('./assets/photo-10.jpg')
                     },
 
-
                 ],
-                isSlider: false,
+                bgSlider: require('./assets/slider-background.jpg'),
                 angleLeft: require('./assets/angle-left.png'),
                 angleRight: require('./assets/angle-right.png'),
                 closeButton: require('./assets/close.png'),
@@ -141,17 +149,20 @@
                     name: "",
                     surname: "",
                     position: ""
-                }]
+                }],
             }
         },
         methods: {
             showSlider(name, surname, position) {
+
                 if (this.isSlider === false) {
                     this.isSlider = true
                     this.people.name = name
                     this.people.surname = surname
                     this.people.position = position
+
                 } else {
+
                     return this.isSlider = false
                 }
             },
@@ -201,12 +212,13 @@
                     surname: this.people[index].surname,
                     position: this.people[index].position
                 })
-
             }
         },
     }
 </script>
-<style>
+
+<style scoped>
+
     .bg-image {
         background-repeat: repeat;
         width: 100vw;
@@ -309,15 +321,14 @@
     }
 
     .slider-background {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-image: url("./assets/slider-background.jpg");
+        width: 100vw;
+        height: 100vh;
         background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: fixed;
     }
 
     .slider-person-position {
@@ -420,5 +431,4 @@
             font-size: 25px
         }
     }
-
 </style>
